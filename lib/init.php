@@ -74,7 +74,15 @@ function izap_entity_menu_setup($hook, $type, $return, $params) {
 		return $return;
 	}
 
+	$allowed_sub_types = array(
+		'izap_videos','izap_ecommerce',
+	);
 	$entity = $params['entity'];
+	if(!in_array($entity->getSubtype(),$allowed_sub_types)) {
+		return $return;
+	}
+	
+
 	$handler = elgg_extract('handler', $params, false);
 
 	// access
