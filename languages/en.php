@@ -36,8 +36,8 @@ add_translation('en', array(
     'izap-elgg-bridge:saving' => 'Saving.....',
     'izap-elgg-bridge:edit' => 'Edit',
     'izap-elgg-bridge:close' => 'Close',
-    'izap-bridge:add_api' => 'Click on the link to set izap-elgg-bridge API. <a href="./admin/plugin_settings/izap-elgg-bridge">izap-elgg-bridge</a>',
-
+    'izap-bridge:add_api' => 'Click on the link to set izap-elgg-bridge API. <a href="/admin/plugin_settings/izap-elgg-bridge">izap-elgg-bridge</a>',
+    
 // for antispam
     'izap-bridge:consicutive_post_time' => 'Minimum time for two consicutive
           posts (Seconds)',
