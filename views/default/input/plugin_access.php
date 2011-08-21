@@ -15,14 +15,14 @@
 ?>
 <p>
   <label>
-    <?php echo elggb_echo('plugin_data_access');?>
+    <?php echo elgg_echo('izap-elgg-bridge:plugin_data_access');?>
     <br />
     <?php echo elgg_view('input/pulldown', array(
       'internalname' => 'params[izap_is_admin_only]',
       'value' => $vars['entity']->izap_is_admin_only,
       'options_values' => array(
-        'no' => elggb_echo('no'),
-        'yes' => elggb_echo('yes'),
+        'no' => elgg_echo('izap-elgg-bridge:no'),
+        'yes' => elgg_echo('izap-elgg-bridge:yes'),
       ),
     ));?>
   </label>

@@ -1,7 +1,7 @@
 <?php
 /**************************************************
 * PluginLotto.com                                 *
-* Copyrights (c) 2005-2010. iZAP                  *
+* Copyrights (c) 2005-2011. iZAP                  *
 * All rights reserved                             *
 ***************************************************
 * @author iZAP Team "<support@izap.in>"
@@ -10,16 +10,18 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
+*/
+
+/*
+ * Discover later
  */
-
 function izap_registration_sniffer($hook, $type, $returnvalue, $params) {
-
+  // let's find later
 }
 
 function izap_login_sniffer($event, $object_type, $user) {
   // update all the login count for all user, need for the antispam
   $user->izap_total_logins++;
-
   return TRUE;
 }
 
@@ -35,15 +37,28 @@ function izap_entity_creation_sniffer($event, $object_type, $object) {
   return TRUE;
 }
 
+/**
+ * Discover later
+ */
 function izap_entity_updation_sniffer($event, $object_type, $object) {
-
   return TRUE;
 }
 
+/**
+ * Discover later
+ */
 function izap_entity_deletion_sniffer($event, $object_type, $object) {
-
   return TRUE;
 }
+/**
+ * Adding rel attribute in all anchore tags.
+ * @global <type> $CONFIG
+ * @param <type> $hook
+ * @param <type> $entity_type
+ * @param <type> $returnvalue
+ * @param <type> $params
+ * @return <type> 
+ */
 
 function izap_htmlawed_hook($hook, $entity_type, $returnvalue, $params) {
   global $CONFIG;
@@ -111,7 +126,7 @@ function izap_entity_menu_setup($hook, $type, $return, $params) {
 			'name' => 'delete',
 			'text' => elgg_view_icon('delete'),
 			'title' => elgg_echo('delete:this'),
-      'href' => IzapBase::deleteLink(array('guid'=> $entity->getGUID(), 'only_url' => true)),
+            'href' => IzapBase::deleteLink(array('guid'=> $entity->getGUID(), 'only_url' => true)),
 			'confirm' => elgg_echo('deleteconfirm'),
 			'priority' => 300,
 		);

@@ -5,4 +5,4 @@
 3. Go to plugin installation panel from admin panel. And browse "izap elgg bridge".
 4. Click on activate. And you are done.
 
-Note: Register an API key at http://www.pluginlotto.com against your domain. We will provide number of services in term of features. So those plugins may need that key. So Grab your key now. If you are already registered with one, Than you can use that too.
+> Register an API key at [Pluginlotto](http://www.pluginlotto.com) against your domain. It would allow you to get better services from iZAP. Grab your key now. If you are already registered for your domain, Than you can use that too.

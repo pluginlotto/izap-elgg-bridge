@@ -2,7 +2,7 @@
 
 /* * ************************************************
  * PluginLotto.com                                 *
- * Copyrights (c) 2005-2010. iZAP                  *
+ * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
  * **************************************************
  * @author iZAP Team "<support@izap.in>"
@@ -23,7 +23,7 @@ add_translation('en', array(
     'item:annotation:generic_comment' => 'Comments',
     'izap-bridge:APIKEY' => 'iZAP API Key',
     'izap-bridge:API_MSG' => 'If you don\'t have then register one at:
-        <a href="http://www.pluginlotto.com/" target="_blank">http://www.pluginlotto.com/</a>',
+        <a href="http://www.pluginlotto.com/" target="_blank">http://www.pluginlotto.com/</a> with hostname "'.$_SERVER['HTTP_HOST'].'".',
     'izap-bridge:delete' => 'Delete',
     'izap-bridge:are_you_sure' => 'Are you sure',
     'izap-bridge:delete_success' => 'Deleted success fully',
@@ -82,25 +82,7 @@ add_translation('en', array(
     'izap-bridge:antispam:enable' => 'Enable anitspam for my site',
     'izap:bridge:mark_spammer' => 'Mark spammer',
     'izap:bridge:suspected_spammer' =>'Suspected spammer',
-    // categories
-    'izap-elgg-bridge:category' => 'Category',
-    'izap-elgg-bridge:categories' => 'Categories',
-    'izap-elgg-bridge:select_category' => 'Select category',
-    'izap-elgg-bridge:add_categories' => 'Add new category',
-    'izap-elgg-bridge:category_title' => 'Title',
-    'izap-elgg-bridge:category_description' => 'Description',
-    'admin:categories' => 'Categories',
-    'admin:categories:izap_categories' => 'Control panel',
-    'admin:categories:izap_categories_chooser' => 'Category Chooser',
-    'izap-elgg-bridge:category_list' => 'Categories',
-    'izap-elgg-bridge:select_category_options' => 'Please select both options',
-    'izap-elgg-bridge:categories_saved' => 'Categories saved successfully',
-    'izap-elgg-bridge:categories_not_saved' => 'Error saving the categories',
-    'izap-elgg-bridge:plugin_not_find' => 'Plugin not found',
-    'izap-bridge:categories:search_result' => 'Search results for %s',
-    'izap-elgg-bridge:select_categories' => 'Select Categories',
-    'izap-bridge:categories:search_in' => 'Search only in : ',
-    'izap:bridge:category:no_data' => 'No entity found in this category ',
+   
     'izap:elgg:bridge:form_empty' => 'Title can not be left empty',
     // added on 06june11
     // payment gateway
@@ -176,20 +158,4 @@ add_translation('en', array(
     'izap-elgg-bridge:minimum_time' => 'Minimum time between two consicutive posts %s',
     'izap-elgg-bridge:reply' => 'Reply',
     'izap-elgg-bridge:link' => 'Link',
-
-    // Izap-elgg-bridge cshop
-    'admin:cshop' => 'admin:cshop',
-    'admin:cshop:products' => 'admin:cshop:products',
-    'izap-elgg-bridge:add_to_cart' => 'izap-elgg-bridge:add_to_cart',
-    'izap-elgg-bridge:cshop:visit_url' => 'Visit url',
-    'izap-elgg-bridge:cshop:first_page' => 'izap-elgg-bridge:cshop:first_page',
-    'izap-elgg-bridge:cshop:previous_page' => 'izap-elgg-bridge:cshop:previous_page',
-    'izap-elgg-bridge:cshop:next_page' => 'izap-elgg-bridge:cshop:next_page',
-    'izap-elgg-bridge:cshop:last_page' => 'izap-elgg-bridge:cshop:last_page',
-    'izap-elgg-bridge:cshop:added_to_cart' => 'izap-elgg-bridge:cshop:added_to_cart',
-    'izap-elgg-bridge:cshop:checkout' => 'izap-elgg-bridge:cshop:checkout',
-    'izap-elgg-bridge:cshop:empty_cart' => 'izap-elgg-bridge:cshop:empty_cart',
-    'izap-elgg-bridge:cshop:cartitems' => 'Cart (%d items)',
-    'izap-elgg-bridge:cshop:username' => 'Username',
-    'izap-elgg-bridge:cshop:password' => 'Password',
 ));

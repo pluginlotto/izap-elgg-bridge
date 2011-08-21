@@ -251,4 +251,23 @@ class IzapObject extends ElggFile {
   public function getOwnerUsername() {
     return IzapBase::getOwnerUsername($this);
   }
+
+  /**
+	 * Can a user comment on entity?
+	 *
+	 * @see ElggObject::canComment()
+	 *
+	 * @param int $user_guid User guid (default is logged in user)
+	 * @return bool
+	 */
+	public function canComment($user_guid = 0) {
+		$result = parent::canComment($user_guid);
+		if ($result == false) {
+			return $result;
+		}
+		if (!$this->comments_on) {
+			return false;
+		}
+		return true;
+	}
 }

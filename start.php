@@ -12,29 +12,16 @@
  * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
- 
+  
 define('GLOBAL_IZAP_ELGG_BRIDGE', 'izap-elgg-bridge');
 define('GLOBAL_IZAP_PAGEHANDLER', 'izap_pagehandler_bridge');
 define('GLOBAL_IZAP_ACTIONHOOK', 'izap_actionhook_bridge');
-define('GLOBAL_IZAP_BRIDGE_CATEGORIES_PAGEHANDLER', 'categories');
-define('GLOBAL_IZAP_BRIDGE_CATEGORIES_SUBTYPE', 'IzapCategory');
 //init for the bridge plugin
-elgg_register_event_handler('boot', 'system', 'izap_bridge_boot', 0);
 elgg_register_event_handler('init', 'system', 'izap_bridge_init');
-elgg_register_event_handler('shutdown', 'system', 'izap_bridge_shutdown');
 
-function izap_bridge_boot() {
-  if (strlen(get_input('__elgg_session')) > 0) {
-    $_SESSION['__elgg_session'] = get_input('__elgg_session');
-  }
-  echo $_SESSION['__elgg_session'];
-  exit;
-}
 
 function izap_bridge_init() {
   global $CONFIG;
-  $CONFIG->bridge->izap_cache = @unserialize(datalist_get('izap_cache'));
-
   // initializes the bridge plugin
   izap_plugin_init(GLOBAL_IZAP_ELGG_BRIDGE);
   //load library for the bridge(using bridge)
@@ -56,20 +43,6 @@ function izap_bridge_init() {
   elgg_register_admin_menu_item('administer', 'marked-spammers', 'users'); // @todo: merge to izap menu
   elgg_register_admin_menu_item('administer', 'suspected-spammers', 'users'); // @todo: merge to izap menu
 
-  elgg_register_admin_menu_item('izap', 'izap_categories', 'categories');
-  elgg_register_admin_menu_item('izap', 'izap_categories_chooser', 'categories');
-
-  
-  expose_function('izap_get_security_tokens', 'bridge_get_security_tokens', array(
-      'ts' => array('type' => 'int', 'required' => false, 'default' => null)
-          ), 'Method to get Elgg security tokens', 'POST', true, true);
-
-  expose_function('izap_create_api', 'bridge_create_api', array(), 'Create new Api', 'POST', false, false);
-
-  expose_function('izap_get_api', 'bridge_get_api', array(
-      'public_key' => array('type' => 'string', 'required' => true, 'default' => null)
-          ), 'Get Api keys', 'GET', false, false);
-
   /**
    * common horizontal control menu hook registration for all plugins dependent
    * on izap-elgg-bridge
@@ -81,18 +54,20 @@ function izap_bridge_init() {
   elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'izap_suspected_spammer');
   if (elgg_is_admin_logged_in ()) {
     if (IzapBase::pluginSetting(array(
-                'name' => 'izap_api_key',
-                'plugin' => GLOBAL_IZAP_ELGG_BRIDGE,
+            'name' => 'izap_api_key',
+            'plugin' => GLOBAL_IZAP_ELGG_BRIDGE,
             )) == '') {
       elgg_add_admin_notice('api_key', elgg_echo('izap-bridge:add_api'));
     }
-    else
+    else{
      elgg_delete_admin_notice('api_key');
+    }
   }
    $global_currency= IzapBase::pluginSetting(array(
         'name' => 'izap_site_currency',
         'plugin' => GLOBAL_IZAP_ELGG_BRIDGE
      ));
+
   if($global_currency==''){
     $CONFIG->site_currency_name='USD';
     $CONFIG->SITE_CURRENCY_SIGN='$';
@@ -102,11 +77,6 @@ function izap_bridge_init() {
     $CONFIG->site_currency_sign=$site_currency[1];
 
   }
-}
-
-function izap_bridge_shutdown() {
-  global $CONFIG;
-  datalist_set('izap_cache', serialize($CONFIG->bridge->izap_cache));
 }
 
 /**
@@ -203,13 +173,6 @@ function izap_plugin_init($plugin_id, $options=array()) {
   $plugin_path = elgg_get_plugins_path() . $plugin_id . DIRECTORY_SEPARATOR;
 
   /**
-   * check for the readme.txt
-   */
-  if (file_exists($plugin_path . 'README')) {
-    elgg_register_admin_menu_item('izap', 'izap_help?plugin=' . $plugin_id, 'help');
-  }
-
-  /**
    * reading the "lib", and registering it
    */
   $files = izap_read_dir($plugin_path . 'lib' . DIRECTORY_SEPARATOR . '*.php');
@@ -226,14 +189,19 @@ function izap_plugin_init($plugin_id, $options=array()) {
   /**
    * reading "actions", and registering it according
    */
-  $files = izap_read_dir($plugin_path . 'actions' . DIRECTORY_SEPARATOR . '*');
-  if (sizeof($files)) {
-    foreach ($files as $file) {
-      if (is_dir($file)) {
-        $access = basename($file);
-        bridge_register_actions($plugin_id, $file, $access);
-      } else {
-        bridge_register_action(bridge_resolve_action_name($plugin_id, $file), $file);
+  $action_dirs = izap_read_dir($plugin_path . 'actions' . DIRECTORY_SEPARATOR . '*');
+  if (sizeof($action_dirs)) {
+    foreach ($action_dirs as $action_dir) {
+      if (is_dir($action_dir)) {
+        $dir_name = basename($action_dir);
+        $action_files = izap_read_dir($action_dir . DIRECTORY_SEPARATOR . '*.php');
+        if (sizeof($action_files)) {
+          foreach ($action_files as $file) {
+            $action_name = $plugin_id . '/' . current(explode('.', basename($file)));
+            elgg_register_action($action_name, $file, $dir_name);
+            elgg_register_plugin_hook_handler('action', $action_name, GLOBAL_IZAP_ACTIONHOOK);
+          }
+        }
       }
     }
   }
@@ -247,33 +215,14 @@ function izap_plugin_init($plugin_id, $options=array()) {
   elgg_extend_view('html_head/extend', $plugin_id . '/metatags');
 }
 
-function elggb_echo($key) {
-  return elgg_echo("izap-elgg-bridge:{$key}");
-}
-
-function bridge_resolve_action_name($plugin_id, $file, $prefix=null) {
-  $action_name = $prefix . current(explode('.', basename($file)));
-  return $plugin_id . '/' . $action_name;
-}
-
-function bridge_register_actions($plugin_id, $directory, $access='logged_in', $action_prefix=null) {
-  $files = izap_read_dir($directory . DIRECTORY_SEPARATOR . '*');
-  if (sizeof($files)) {
-    foreach ($files as $file) {
-      if (is_dir($file)) {
-        bridge_register_actions($plugin_id, $file, $access, basename($file) . '_');
-      } else {
-        bridge_register_action(bridge_resolve_action_name($plugin_id, $file, $action_prefix), $file, $access);
-      }
-    }
-  }
-}
-
-function bridge_register_action($action_name, $file, $access='logged_in') {
-  elgg_register_action($action_name, $file, $access);
-  elgg_register_plugin_hook_handler('action', $action_name, GLOBAL_IZAP_ACTIONHOOK);
-}
-
+/**
+ * Registering elgg menu for suspected spammers
+ * @param <type> $hook
+ * @param <type> $type
+ * @param <type> $return
+ * @param <type> $params
+ * @return <type>
+ */
 function izap_suspected_spammer($hook, $type, $return, $params) {
 
   $user = $params['entity'];
@@ -285,6 +234,14 @@ function izap_suspected_spammer($hook, $type, $return, $params) {
   return $return;
 }
 
+/**
+ * Registering menu in user icon menu to mark anyone as spammer.
+ * @param <type> $hook
+ * @param <type> $type
+ * @param ElggMenuItem $return
+ * @param <type> $params
+ * @return ElggMenuItem 
+ */
 function izap_mark_spammer($hook, $type, $return, $params) {
 
   $user = $params['entity'];
