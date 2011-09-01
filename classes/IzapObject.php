@@ -18,8 +18,6 @@
  */
 class IzapObject extends ElggFile {
 
-  private $_is_new_record=true;
-
   protected $_post;
   protected $_guid;
   protected $_attributes;
@@ -50,20 +48,13 @@ class IzapObject extends ElggFile {
   public function __construct($guid=null) {
     global $CONFIG;
     parent::__construct($guid);
-
     $this->_post = $CONFIG->post_byizap;
     if(is_numeric($guid) && $guid > 0 ) {
       $this->_guid = $guid;
     }else {
       $this->_guid = $this->_post->attributes['guid'];
     }
-
-
-
-    if((int) $this->_guid > 0) {
-      $this->setIsNewRecord(false);
-    }
-  }
+ }
 
 
   /**
@@ -71,7 +62,7 @@ class IzapObject extends ElggFile {
    */
   public function setAttributes() {
     foreach($this->getAttributesArray() as $attribute => $config) {
-      if(isset ($this->_post->attributes [$attribute])) {
+      if(isset ($this->_post->attributes[$attribute])) {
         $this->{$attribute} = $this->_post->attributes [$attribute];
       }
     }
@@ -95,7 +86,7 @@ class IzapObject extends ElggFile {
    * @param array $options more information useful to save the entity
    * @return boolean
    */
-  public function save($validate = TRUE, $options = array()) {
+  public function save($validate = true, $options = array()) {
     global $CONFIG;
 
     if($this->_guid && !$this->canEdit()) {
@@ -103,15 +94,14 @@ class IzapObject extends ElggFile {
       return false;
     }
 
-    if($validate === true) {
+    if($validate) {
       $validated = $this->_post->form_validated && $this->validate();
     } else {
       $validated = true;
     }
-
+    $river_action = $this->isNewRecord() ? 'created' : 'updated';
     if ($validated && parent::save()) {
-      if($options['river'] !== FALSE) {
-        $river_action = (($this->isNewRecord()!==true) ? 'updated' : 'created');
+      if($options['river'] !== false) {        
         $view = "river/{$this->getType()}/{$this->getSubtype()}/{$river_action}";
         if(!elgg_view_exists($view)) {
           $view = "river/{$this->getType()}/{$this->getSubtype()}/default";
@@ -133,8 +123,6 @@ class IzapObject extends ElggFile {
       $this->owner_name = IzapBase::getOwnerName($this);
       $this->container_username = IzapBase::getContainerUsername($this);
       $this->container_name = IzapBase::getContainerName($this);
-
-      $this->setIsNewRecord(FALSE);
       return true;
     }
     return false;
@@ -146,17 +134,7 @@ class IzapObject extends ElggFile {
    * @return boolean
    */
   public function isNewRecord() {
-    return $this->_is_new_record;
-  }
-
-
-  /**
-   * set the object as new record
-   * @param boolean $value
-   * @return boolean
-   */
-  public function setIsNewRecord($value=null) {
-    return $this->_is_new_record = $value;
+    return ($this->guid)?false:true;
   }
 
 
@@ -166,7 +144,7 @@ class IzapObject extends ElggFile {
    * @param string $msg
    */
   public function addError($attribute, $msg) {
-    $this->_errors [$attribute] [] = $msg;
+    $this->_errors[$attribute][] = $msg;
   }
 
 

@@ -21,9 +21,10 @@ add_translation('en', array(
     'izap-bridge:invalid_entity' => 'Invalid entity',
     'item:annotation:blog_auto_save' => 'Blog draft',
     'item:annotation:generic_comment' => 'Comments',
-    'izap-bridge:APIKEY' => 'iZAP API Key',
+    'izap-bridge:APIKEY' => 'API key',
+    'izap-elgg-bridge:api_settings' => 'Pluginlotto.com settings',
     'izap-bridge:API_MSG' => 'If you don\'t have then register one at:
-        <a href="http://www.pluginlotto.com/" target="_blank">http://www.pluginlotto.com/</a> with hostname "'.$_SERVER['HTTP_HOST'].'".',
+        <a href="http://www.pluginlotto.com/" target="_blank">http://www.pluginlotto.com/</a> with hostname "<strong>'.$_SERVER['HTTP_HOST'].'</strong>".',
     'izap-bridge:delete' => 'Delete',
     'izap-bridge:are_you_sure' => 'Are you sure',
     'izap-bridge:delete_success' => 'Deleted success fully',
@@ -94,6 +95,8 @@ add_translation('en', array(
     'izap-elgg-bridge:settings_saved' => 'Settings saved successfully.',
     'izap-elgg-bridge:error_saving_settings' => 'Error while saving settings.',
     'izap-elgg-bridge:plugin_data_access' => 'Should the plugin data access be limited to admin only',
+    'izap-elgg-bridge:amazon_settings' => 'Amazon settings',
+    'izap-elgg-bridge:general_settings' => 'General settings',
     'izap-bridge:AmazonsecretKEY' => 'Access key',
     'izap-bridge:applicationkey' => 'Secret key',
     'izap-bridge:choose_currency_for_site'=>'Currency of my site',
@@ -150,12 +153,14 @@ add_translation('en', array(
     'izap-elgg-bridge:rate-3' => "Cool (3)",
     'izap-elgg-bridge:rate-4' => "Amazing (4)",
     'izap-elgg-bridge:rate-5' => "Awesome (5)",
-    // threaded comments
-    'izap-elgg-bridge:threaded_comments_error' => 'Unable to save the comment now. Please try after sometime.',
-    'izap-elgg-bridge:threaded_comments_deleted' => 'Comment deleted successfully.',
-    'izap-elgg-bridge:threaded_comments_delete_error' => 'Unable to delete the comment.',
-    'izap-elgg-bridge:close' => 'Close',
-    'izap-elgg-bridge:minimum_time' => 'Minimum time between two consicutive posts %s',
-    'izap-elgg-bridge:reply' => 'Reply',
-    'izap-elgg-bridge:link' => 'Link',
+
+    // Exceptions
+    'izap-elgg-bridge:Exception:mandatory_array_indexes' => 'Mandatory associative indexes: %s',
+    'izap-elgg-bridge:Exception:no_metadata' => 'Undefined "%s" call.',
+    'izap-elgg-bridge:Exception:no_method' => 'Undefined function name: "%s"',
+    'izap-elgg-bridge:Exception:wrong_credential_or_connection_issue' => 'Could not obtain authenticated Http client object. %s',
+
+    'izap-elgg-bridge:comments:on' => 'On',
+    'izap-elgg-bridge:comments' => 'Comments',
+    'izap-elgg-bridge:comments:off' => 'Off'
 ));

@@ -1,0 +1,5 @@
+###Version 2.1
+1. Facebook SDK introduction.
+2. GData SDK introduction.
+3. Optimization of code.
+4. Small but important bug fixes.

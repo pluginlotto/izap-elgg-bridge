@@ -109,19 +109,23 @@ class IzapBase {
 
   /**
    * calls the input view with <p> and <label> tag included
-   * 
+   *
    * @param string $input input view name
    * @param array $vars vars
    * @return string complete view
-   * 
+   *
    */
   public static function input($input, $vars = array()) {
-    $return = '<p><label>';
-    $return .= $vars['input_title'] . '<br />';
-    unset($vars['input_title']);
-    $return .= elgg_view('input/' . $input, $vars);
-    $return .= '</label></p>';
 
+    if($input != 'hidden'){
+      $return = '<p><label>';
+      $return .= $vars['input_title'] . '<br /></label>';
+      unset($vars['input_title']);
+      $return .= elgg_view('input/' . $input, $vars);
+      $return .= '</p>';
+    }else{
+      $return .= elgg_view('input/' . $input, $vars);
+    }
     return $return;
   }
 
@@ -186,7 +190,7 @@ class IzapBase {
       }
     }
 
-    if (!is_array($return) && $input['make_array'] && (bool)$return) {
+    if (!is_array($return) && $input['make_array'] && (bool) $return) {
       $new_return_val[] = $return;
       $return = $new_return_val;
     }
@@ -199,23 +203,18 @@ class IzapBase {
    * @global $CONFIG
    * @return boolean true if error else false
    */
-
-
-  public static function byteToMb($size){
-    return round(((float)$size)/(1024*1024),2);
-
+  public static function byteToMb($size) {
+    return round(((float) $size) / (1024 * 1024), 2);
   }
 
- public static function mb2byte($mb) {
-  return 1024*1024*$mb;
-}
-
+  public static function mb2byte($mb) {
+    return 1024 * 1024 * $mb;
+  }
 
   public static function hasFormError() {
     global $CONFIG;
     return!$CONFIG->post_byizap->form_validated;
   }
-
 
   /**
    * returns the posted values of the form
@@ -230,7 +229,6 @@ class IzapBase {
     }
     return $CONFIG->post_byizap->attributes;
   }
-
 
   /**
    * returns the form errors
@@ -247,7 +245,6 @@ class IzapBase {
     return $CONFIG->post_byizap->form_errors;
   }
 
-
   /**
    * updates the form posted attributes
    * 
@@ -259,7 +256,6 @@ class IzapBase {
     global $CONFIG;
     $CONFIG->post_byizap->attributes[$attribute] = $value;
   }
-
 
   /**
    * sends the mail
@@ -302,7 +298,6 @@ class IzapBase {
     return mail($params['to'], $params['subject'], $params['msg'], $headers);
   }
 
-
   /**
    * gives the full entity from the name
    * @param string $username
@@ -328,7 +323,6 @@ class IzapBase {
     return FALSE;
   }
 
-
   /**
    * sets the pageowner
    * @param mixed $username user/group username or guid
@@ -353,7 +347,6 @@ class IzapBase {
     }
   }
 
-
   /**
    * gives the api key's value for the bridge
    * @return string
@@ -364,7 +357,6 @@ class IzapBase {
         'plugin' => GLOBAL_IZAP_ELGG_BRIDGE
     ));
   }
-
 
   /**
    * sends caching headers
@@ -385,7 +377,7 @@ class IzapBase {
 
     $working = array_merge($defaults, $options);
     extract($working);
-    
+
     header("Pragma: public", true);
     header("Cache-Control: maxage=" . $expire_time . " public", true);
     header('Expires: ' . date('r', time() + $expire_time), true);
@@ -393,7 +385,6 @@ class IzapBase {
     header("Content-type: {$content_type}", true);
     header("Content-Disposition: inline; filename=\"{$file_name}\"", true);
   }
-
 
   /**
    * gives the file's extension if file found
@@ -407,7 +398,6 @@ class IzapBase {
 
     return strtolower(end(explode('.', $filename)));
   }
-
 
   /**
    * loads the form with the pre-filled values from the sticky form or entity 
@@ -442,14 +432,12 @@ class IzapBase {
     return $return_value;
   }
 
-
   /**
    * prints the pluginlotto 's link
    */
   public static function echoIzapLink() {
     echo elgg_view(GLOBAL_IZAP_ELGG_BRIDGE . '/our_link');
   }
-
 
   /**
    * checks if the user can add a friend
@@ -483,7 +471,6 @@ class IzapBase {
     return md5($microtime . $rand . $input . rand(43, 1985));
   }
 
-
   /**
    * overrides all access
    * @param string $func_name
@@ -496,9 +483,8 @@ class IzapBase {
     elgg_register_plugin_hook_handler("permissions_check:metadata", "all", $func_name, $priority);
   }
 
-
   /**
-   *rollback all the access
+   * rollback all the access
    * @param string $func_name
    */
   public static function removeAccess($func_name = 'izap_access_over_ride') {
@@ -507,7 +493,6 @@ class IzapBase {
     elgg_unregister_plugin_hook_handler("container_permissions_check", "all", $func_name);
     elgg_unregister_plugin_hook_handler("permissions_check:metadata", "all", $func_name);
   }
-
 
   /**
    * updates the metadata
@@ -594,7 +579,6 @@ class IzapBase {
     return elgg_view('output/confirmlink', $working_array);
   }
 
-
   /**
    * check if request is ajax request
    * @return boolean
@@ -602,7 +586,6 @@ class IzapBase {
   public static function isAjaxRequest() {
     return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
   }
-
 
   /**
    * gives the time with proper formatting
@@ -633,7 +616,6 @@ class IzapBase {
       return (int) $hr . ' hrs ' . (int) $min . ' mins ' . (int) $sec . ' secs';
   }
 
-
   /**
    * Increment the views when user visits the page
    * @param elggEntity $entity
@@ -645,7 +627,6 @@ class IzapBase {
       self::removeAccess();
     }
   }
-
 
   /**
    * Decrement the views
@@ -659,7 +640,6 @@ class IzapBase {
     }
   }
 
-
   /**
    * gives the total number of views of the entity
    * @param elggEntity $entity
@@ -668,7 +648,6 @@ class IzapBase {
   public static function getViews($entity) {
     return (int) $entity->total_views;
   }
-
 
   /**
    * saves the image file
@@ -695,7 +674,7 @@ class IzapBase {
     $filehandler->close();
 
     if ($file_array['create_thumbs'] && $return) {
-      $thumbtopbar = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(), 16,16,true);
+      $thumbtopbar = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(), 16, 16, true);
       $thumbtiny = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(), 25, 25, true);
       $thumbsmall = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(), 40, 40, true);
       $thumbmedium = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(), 100, 100, true);
@@ -736,7 +715,6 @@ class IzapBase {
     return $return;
   }
 
-
   /**
    * get the file
    * @param array $file_array
@@ -756,7 +734,6 @@ class IzapBase {
     $filehandler->open("read");
     return $filehandler->grabFile();
   }
-
 
   /**
    * gives the container's username
@@ -779,7 +756,6 @@ class IzapBase {
     return (string) $c_username;
   }
 
-
   /**
    * gives the container's name
    * @param elggEntity $entity
@@ -799,7 +775,6 @@ class IzapBase {
 
     return (string) $c_name;
   }
-
 
   /**
    * gives the owner's username of the entity
@@ -821,7 +796,6 @@ class IzapBase {
     return (string) $o_username;
   }
 
-
   /**
    * gives the owner's name of the entity
    * @param elggEntity $entity
@@ -842,20 +816,28 @@ class IzapBase {
     return (string) $o_name;
   }
 
- 
-     /**
+  /**
    *
-   * @param <type> $params Possible values array('entity' => , 'handler' => , 'page_owner' => (true/false))
+   * @param <type> $params Possible values array('entity' => , 'handler' => , 'page_owner' => (true/false),'vars' => )
    */
-  public static function controlEntityMenu($params){
+  public static function controlEntityMenu($params) {
     return $metadata = elgg_view_menu('entity', array(
-          'entity' => $params['entity'],
-          'handler' => $params['handler'],
-          'page_owner' => $params['page_owner'] ,
-          'sort_by' => 'priority',
-          'class' => 'elgg-menu-hz',
+        'entity' => $params['entity'],
+        'handler' => $params['handler'],
+        'page_owner' => $params['page_owner'],
+        'sort_by' => 'priority',
+        'class' => 'elgg-menu-hz',
+        'vars' => $params['vars']
+    ));
+  }
 
-        ));
+  /**
+   * You can truncate an array to the given limit
+   * @param <array> $array_to_be_truncated .
+   * @param <int> $element_limit
+   */
+  static function izap_truncate_array($array_to_be_truncated, $element_limit){
+    return array_slice($array_to_be_truncated, 0, $element_limit, true);
   }
 
 }

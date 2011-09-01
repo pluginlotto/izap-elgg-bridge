@@ -77,7 +77,7 @@ abstract class IzapController {
    *                $url => link of the button
    *
    */
-  public function addButton($array) {
+  protected function addButton($array) {
     extract($array);
         
     if(!empty($title) && !empty($menu_name)) {
@@ -88,7 +88,6 @@ abstract class IzapController {
               'link_class' => 'elgg-button elgg-button-action',
       ));
 
-//      $this->buttons[$menu_name] = elgg_get_friendly_title($title);
     }
   }
 
@@ -99,7 +98,7 @@ abstract class IzapController {
    * @param <type> $vars
    * @param <type> $position
    */
-  public function addWidget($view, $vars = array(), $position = 'sidebar') {
+  protected function addWidget($view, $vars = array(), $position = 'sidebar') {
     $this->widgets[] = elgg_view($view, $vars);
   }
 
@@ -112,11 +111,7 @@ abstract class IzapController {
       $this->drawPage();
   }
 
-  public function drawPage() {
-//    if(sizeof($this->buttons)) {
-//      foreach($this->buttons as $menu_name => $value)
-//      $this->page_elements['buttons'] .= elgg_view_menu($menu_name);
-//    }
+  protected function drawPage() {
     
     if(sizeof($this->widgets)) {
       $this->page_elements['sidebar'] = implode('', $this->widgets);

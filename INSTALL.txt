@@ -1,0 +1,14 @@
+### Installation instructions
+
+1. Download compressed ball and uncompress.
+2. Move uncompressed folder under "mod" directory and rename to "izap-elgg-bridge".
+3. Go to plugin installation panel from admin panel. And browse "izap elgg bridge".
+4. Click on activate. And you are done.
+
+##### Question: Why do i have alert in admin panel to add API?
+This alert is notifying you to Register your API from [Pluginlotto.com](http://www.pluginlott.com).
+To do so Login/Register at [Pluginlotto.com](http://www.pluginlott.com) And browse "My API" tab. There
+you will be asked to put your hostname. Add your hostname and Register your API. Now copy new API key
+and put that key in "iZAP API Key" input box and submit.
+
+> Note: It is require to register your API at pluginlotto. This will help us to give you tremendous service by our in valuable plugins for elgg.

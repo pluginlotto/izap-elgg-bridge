@@ -22,11 +22,18 @@ elgg_register_event_handler('init', 'system', 'izap_bridge_init');
 
 function izap_bridge_init() {
   global $CONFIG;
+
+  //including venders directory in default include paths.
+  set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__).'/vendors/');
+  
   // initializes the bridge plugin
   izap_plugin_init(GLOBAL_IZAP_ELGG_BRIDGE);
+
+  //registering tab view javascript
+  elgg_register_js('jquery.md5', 'mod/izap-elgg-bridge/vendors/tabs_view.js');
+
   //load library for the bridge(using bridge)
   IzapBase::loadLib(array('plugin' => GLOBAL_IZAP_ELGG_BRIDGE, 'lib' => 'init'));
-
   // over-ride "admin" pagehandler
   elgg_register_page_handler('admin', GLOBAL_IZAP_PAGEHANDLER);
   elgg_register_page_handler(GLOBAL_IZAP_BRIDGE_CATEGORIES_PAGEHANDLER, GLOBAL_IZAP_PAGEHANDLER);
@@ -59,9 +66,7 @@ function izap_bridge_init() {
             )) == '') {
       elgg_add_admin_notice('api_key', elgg_echo('izap-bridge:add_api'));
     }
-    else{
-     elgg_delete_admin_notice('api_key');
-    }
+    
   }
    $global_currency= IzapBase::pluginSetting(array(
         'name' => 'izap_site_currency',
@@ -91,10 +96,7 @@ function izap_read_dir($path = '') {
   if (empty($path)) {
     $path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
   }
-  if (!isset($CONFIG->bridge->izap_cache->path_cache[$path])) {
-    $CONFIG->bridge->izap_cache->path_cache[$path] = glob($path);
-  }
-  return $CONFIG->bridge->izap_cache->path_cache[$path];
+  return glob($path);
 }
 
 function izap_pagehandler_bridge($page) {
