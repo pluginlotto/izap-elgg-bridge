@@ -230,7 +230,8 @@ function izap_suspected_spammer($hook, $type, $return, $params) {
   $user = $params['entity'];
   if (elgg_instanceof($user, 'user')) {
     $item = ElggMenuItem::factory(array('name' => 'suspected_spammer', 'text' => elgg_Echo('izap:bridge:suspected_spammer'), 'guid' => $user->guid));
-    $item->setLinkClass('izap_mark_spammer');
+    $item->setLinkClass('izap_suspected_spammer');
+    $item->setSection('admin');
     $return[] = $item;
   }
   return $return;
@@ -249,6 +250,7 @@ function izap_mark_spammer($hook, $type, $return, $params) {
   $user = $params['entity'];
   if (elgg_instanceof($user, 'user')) {
     $item = new ElggMenuItem('mark_spammer', elgg_echo('izap:bridge:mark_spammer'), elgg_add_action_tokens_to_url(IzapBase::getFormAction('submit_spammer', GLOBAL_IZAP_ELGG_BRIDGE) . '?guid=' . $user->guid));
+    $item->setSection('admin');
     $return[] = $item;
   }
   return $return;

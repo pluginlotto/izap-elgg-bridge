@@ -83,6 +83,7 @@ add_translation('en', array(
     'izap-bridge:antispam:enable' => 'Enable anitspam for my site',
     'izap:bridge:mark_spammer' => 'Mark spammer',
     'izap:bridge:suspected_spammer' =>'Suspected spammer',
+    'izap-elgg-bridge:spammer_suspected' => 'You have marked the user as suspected spammer',
    
     'izap:elgg:bridge:form_empty' => 'Title can not be left empty',
     // added on 06june11

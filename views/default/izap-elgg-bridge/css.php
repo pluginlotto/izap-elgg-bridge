@@ -27,3 +27,6 @@ font-size: 15px;
 font-size:12px;
 font-weight:bold;
 }
+.izap_suspected_spammer:hover {
+cursor:pointer;
+}

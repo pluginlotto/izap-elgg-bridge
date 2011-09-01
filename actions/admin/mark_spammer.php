@@ -15,4 +15,5 @@
 $guid = get_input('guid');
 $spammer = get_entity($guid);
 $spammer->izap_spammer_hotness++;
-echo $spammer->izap_spammer_hotness;  
+echo $spammer->izap_spammer_hotness;
+system_message(elgg_echo('izap-elgg-bridge:spammer_suspected'));
