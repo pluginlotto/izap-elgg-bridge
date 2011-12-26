@@ -36,7 +36,6 @@ function izap_bridge_init() {
   IzapBase::loadLib(array('plugin' => GLOBAL_IZAP_ELGG_BRIDGE, 'lib' => 'init'));
   // over-ride "admin" pagehandler
   elgg_register_page_handler('admin', GLOBAL_IZAP_PAGEHANDLER);
-  elgg_register_page_handler(GLOBAL_IZAP_BRIDGE_CATEGORIES_PAGEHANDLER, GLOBAL_IZAP_PAGEHANDLER);
 
   // register some basic hooks
   elgg_register_plugin_hook_handler('register', 'user', 'izap_registration_sniffer');

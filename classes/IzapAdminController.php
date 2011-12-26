@@ -38,7 +38,7 @@ class IzapAdminController extends IzapController {
   }
 
   public function __call($name, $arguments) {
-    admin_settings_page_handler($this->_page);
+    admin_page_handler($this->_page);
   }
 
   public function runAction() {
@@ -62,15 +62,6 @@ class IzapAdminController extends IzapController {
     $this->page_elements['content'] = $contents;
     $this->drawPage();
     return ;
-  }
-
-  public function actionCategories() {
-    $izap_categories = new IzapCategoryController();
-    $method_name = 'action' . ucfirst($this->url_vars[1]);
-    if (method_exists($izap_categories, $method_name)) {
-      $vars = $izap_categories->{$method_name}();
-    }
-    $this->render($this->_view, $vars);
   }
 
   public function actionImage() {
