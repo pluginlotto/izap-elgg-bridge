@@ -112,6 +112,7 @@ function izap_pagehandler_bridge($page) {
   $controller = new $class($page);
   //calls the action of the class controller
   $controller->runAction();
+  return true;
 }
 
 /**
