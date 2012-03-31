@@ -81,6 +81,9 @@ function izap_bridge_init() {
     $CONFIG->site_currency_sign=$site_currency[1];
 
   }
+  
+  // regiter antispam with elgg
+  elgg_register_ajax_view('/js/antispam/userstats');
 }
 
 /**
