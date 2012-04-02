@@ -43,6 +43,7 @@ function izap_bridge_init() {
   elgg_register_event_handler('create', 'all', 'izap_entity_creation_sniffer');
   elgg_register_event_handler('update', 'all', 'izap_entity_updation_sniffer');
   elgg_register_event_handler('delete', 'all', 'izap_entity_deletion_sniffer');
+  elgg_register_event_handler('ready', 'system', 'system_ready_hook');
   elgg_register_plugin_hook_handler('config', 'htmlawed', 'izap_htmlawed_hook');
 
   // set pages for the admin
@@ -58,6 +59,7 @@ function izap_bridge_init() {
   
   elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'izap_mark_spammer');
   elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'izap_suspected_spammer');
+  elgg_extend_view('page/elements/footer', GLOBAL_IZAP_ELGG_BRIDGE . '/our_link');
   if (elgg_is_admin_logged_in ()) {
     if (IzapBase::pluginSetting(array(
             'name' => 'izap_api_key',

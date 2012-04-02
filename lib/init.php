@@ -68,7 +68,7 @@ function izap_htmlawed_hook($hook, $entity_type, $returnvalue, $params) {
   $ignore_url = str_replace('.', '\.', $url_params['host']);
 
   $extra_config = array(
-      'anti_link_spam' => array('`://\W*(?!(' . $ignore_url . '))`', ''),
+    'anti_link_spam' => array('`://\W*(?!(' . $ignore_url . '))`', ''),
   );
 
   return array_merge((array) $returnvalue, $extra_config);
@@ -92,7 +92,7 @@ function izap_entity_menu_setup($hook, $type, $return, $params) {
   }
 
   $allowed_sub_types = array(
-      GLOBAL_IZAP_VIDEOS_SUBTYPE, GLOBAL_IZAP_ECOMMERCE_SUBTYPE, GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE, GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE,
+    GLOBAL_IZAP_VIDEOS_SUBTYPE, GLOBAL_IZAP_ECOMMERCE_SUBTYPE, GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE, GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE,
   );
   $entity = $params['entity'];
   if (!in_array($entity->getSubtype(), $allowed_sub_types)) {
@@ -105,10 +105,10 @@ function izap_entity_menu_setup($hook, $type, $return, $params) {
   // access
   $access = elgg_view('output/access', array('entity' => $entity));
   $options = array(
-      'name' => 'access',
-      'text' => $access,
-      'href' => false,
-      'priority' => 100,
+    'name' => 'access',
+    'text' => $access,
+    'href' => false,
+    'priority' => 100,
   );
   $return[] = ElggMenuItem::factory($options);
 
@@ -124,25 +124,31 @@ function izap_entity_menu_setup($hook, $type, $return, $params) {
 
     //   edit link
     $options = array(
-        'name' => 'edit',
-        'text' => elgg_echo('edit'),
-        'title' => elgg_echo('edit:this'),
-        'href' => IzapBase::setHref(isset($params['page_owner']) ? array('page_owner' => $params['page_owner'], 'context' => $handler, 'action' => 'edit', 'vars' => $vars) : array('context' => $handler, 'action' => 'edit', 'vars' => $vars)),
-        'priority' => 200,
+      'name' => 'edit',
+      'text' => elgg_echo('edit'),
+      'title' => elgg_echo('edit:this'),
+      'href' => IzapBase::setHref(isset($params['page_owner']) ? array('page_owner' => $params['page_owner'], 'context' => $handler, 'action' => 'edit', 'vars' => $vars) : array('context' => $handler, 'action' => 'edit', 'vars' => $vars)),
+      'priority' => 200,
     );
     $return[] = ElggMenuItem::factory($options);
 
     // delete link
     $options = array(
-        'name' => 'delete',
-        'text' => elgg_view_icon('delete'),
-        'title' => elgg_echo('delete:this'),
-        'href' => IzapBase::deleteLink(array('guid' => $entity->getGUID(), 'only_url' => true)),
-        'confirm' => elgg_echo('deleteconfirm'),
-        'priority' => 300,
+      'name' => 'delete',
+      'text' => elgg_view_icon('delete'),
+      'title' => elgg_echo('delete:this'),
+      'href' => IzapBase::deleteLink(array('guid' => $entity->getGUID(), 'only_url' => true)),
+      'confirm' => elgg_echo('deleteconfirm'),
+      'priority' => 300,
     );
     $return[] = ElggMenuItem::factory($options);
   }
 
   return $return;
+}
+
+function system_ready_hook() {
+  global $CONFIG;
+  elgg_trigger_event('izap', 'link');
+  return True;
 }
