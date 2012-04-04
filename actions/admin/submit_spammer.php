@@ -20,7 +20,7 @@ if(!elgg_instanceof($spammer, 'user')) {
   exit;
 }
 
-$success = TRUE;
+$success = True;
 $entities = elgg_get_entities(array(
         'types' => array('object', 'group'),
         'owner_guid' => $spammer->guid,
@@ -40,33 +40,15 @@ if($entities) {
     );
 
     if($izapspamdata->insert($spam_data[$entity->guid])) {
-     // delete_entity($entity->guid);
     }else {
-      $success = false;
+      $success = False;
     }
 
   }
 
-  if($success === TRUE) {
+  if($success === True) {
     $izapspamdata->upload();
-//    if($spammer->ban(elgg_echo('izap-antispam:ban_reason'))) {
-//      // clear all other data @TODO: Need more discussion on it
-//      $spammer->deleteAnnotations();
-//      $spammer->deleteOwnedAnnotations();
-//      $spammer->deleteRelationships();
-//      remove_from_river_by_subject($spammer->guid);
-//      remove_from_river_by_object($spammer->guid);
-//
-//      // reset for the counts in case the user in unbanned next time
-//      $spammer->izap_is_spammer = 'no';
-//      $spammer->izap_spammer_hotness = 0;
-//      $spammer->izap_avg_post_time = 0;
-//      $spammer->izap_avg_check_time = 0;
-//      $spammer->izap_consicutive_try = 0;
-//      $spammer->izap_last_posted = 0;
-//
-//      system_message(elgg_echo('izap-antispam:user_banned'));
-//    }
+
   }
 }
 

@@ -12,20 +12,19 @@
  * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
-  
+
 define('GLOBAL_IZAP_ELGG_BRIDGE', 'izap-elgg-bridge');
 define('GLOBAL_IZAP_PAGEHANDLER', 'izap_pagehandler_bridge');
 define('GLOBAL_IZAP_ACTIONHOOK', 'izap_actionhook_bridge');
 //init for the bridge plugin
 elgg_register_event_handler('init', 'system', 'izap_bridge_init');
 
-
 function izap_bridge_init() {
   global $CONFIG;
 
   //including venders directory in default include paths.
-  set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__).'/vendors/');
-  
+  set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/vendors/');
+
   // initializes the bridge plugin
   izap_plugin_init(GLOBAL_IZAP_ELGG_BRIDGE);
 
@@ -54,36 +53,36 @@ function izap_bridge_init() {
    * common horizontal control menu hook registration for all plugins dependent
    * on izap-elgg-bridge
    */
-
   elgg_register_plugin_hook_handler('register', 'menu:entity', 'izap_entity_menu_setup');
-  
+
   elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'izap_mark_spammer');
+
+  elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'izap_unmark_spammer');
+
   elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'izap_suspected_spammer');
   elgg_extend_view('page/elements/footer', GLOBAL_IZAP_ELGG_BRIDGE . '/our_link');
-  if (elgg_is_admin_logged_in ()) {
+  if (elgg_is_admin_logged_in()) {
     if (IzapBase::pluginSetting(array(
-            'name' => 'izap_api_key',
-            'plugin' => GLOBAL_IZAP_ELGG_BRIDGE,
+                'name' => 'izap_api_key',
+                'plugin' => GLOBAL_IZAP_ELGG_BRIDGE,
             )) == '') {
       elgg_add_admin_notice('api_key', elgg_echo('izap-bridge:add_api'));
     }
-    
   }
-   $global_currency= IzapBase::pluginSetting(array(
-        'name' => 'izap_site_currency',
-        'plugin' => GLOBAL_IZAP_ELGG_BRIDGE
-     ));
+  $global_currency = IzapBase::pluginSetting(array(
+              'name' => 'izap_site_currency',
+              'plugin' => GLOBAL_IZAP_ELGG_BRIDGE
+          ));
 
-  if($global_currency==''){
-    $CONFIG->site_currency_name='USD';
-    $CONFIG->SITE_CURRENCY_SIGN='$';
-  }else{
-    $site_currency=explode(':',$global_currency);
-    $CONFIG->site_currency_name=$site_currency[0];
-    $CONFIG->site_currency_sign=$site_currency[1];
-
+  if ($global_currency == '') {
+    $CONFIG->site_currency_name = 'USD';
+    $CONFIG->SITE_CURRENCY_SIGN = '$';
+  } else {
+    $site_currency = explode(':', $global_currency);
+    $CONFIG->site_currency_name = $site_currency[0];
+    $CONFIG->site_currency_sign = $site_currency[1];
   }
-  
+
   // regiter antispam with elgg
   elgg_register_ajax_view('/js/antispam/userstats');
 }
@@ -254,7 +253,19 @@ function izap_mark_spammer($hook, $type, $return, $params) {
 
   $user = $params['entity'];
   if (elgg_instanceof($user, 'user')) {
-    $item = new ElggMenuItem('mark_spammer', elgg_echo('izap:bridge:mark_spammer'), elgg_add_action_tokens_to_url(IzapBase::getFormAction('submit_spammer', GLOBAL_IZAP_ELGG_BRIDGE) . '?guid=' . $user->guid));
+    $item = new ElggMenuItem('mark_spammer', elgg_echo('izap:bridge:mark_spammer'),
+                    elgg_add_action_tokens_to_url(IzapBase::getFormAction('mark_spammer', GLOBAL_IZAP_ELGG_BRIDGE) . '?guid=' . $user->guid));
+    $item->setSection('admin');
+    $return[] = $item;
+  }
+  return $return;
+}
+
+function izap_unmark_spammer($hook, $type, $return, $params) {
+  $user = $params['entity'];
+  if (elgg_instanceof($user, 'user')) {
+    $item = new ElggMenuItem('unmark_spammer', elgg_echo('izap:bridge:unmark_spammer'),
+                    elgg_add_action_tokens_to_url(IzapBase::getFormAction('not_spammer', GLOBAL_IZAP_ELGG_BRIDGE) . '?guid=' . $user->guid));
     $item->setSection('admin');
     $return[] = $item;
   }

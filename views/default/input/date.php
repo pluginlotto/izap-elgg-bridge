@@ -50,6 +50,6 @@ $year_arr[$i]=$i;
 endfor;
 
 
-echo elgg_view('input/pulldown',array('internalname'=>"{$vars['internalname']}[day]",'options_values'=>$day_arr, 'value'=>"{$vars['value']['day']}", 'internalid'=>$vars['internalid'])) . '&nbsp;/&nbsp;' .
-elgg_view('input/pulldown',array('internalname'=>"{$vars['internalname']}[month]",'options_values'=>$month_arr, 'value'=>"{$vars['value']['month']}")) . '&nbsp;/&nbsp;' .
-elgg_view('input/pulldown',array('internalname'=>"{$vars['internalname']}[year]",'options_values'=>$year_arr, 'value'=>"{$vars['value']['year']}")) ;
+echo elgg_view('input/dropdown',array('name'=>"{$vars['name']}[day]",'options_values'=>$day_arr, 'value'=>"{$vars['value']['day']}", 'internalid'=>$vars['internalid'])) . '&nbsp;/&nbsp;' .
+elgg_view('input/dropdown',array('name'=>"{$vars['name']}[month]",'options_values'=>$month_arr, 'value'=>"{$vars['value']['month']}")) . '&nbsp;/&nbsp;' .
+elgg_view('input/dropdown',array('name'=>"{$vars['name']}[year]",'options_values'=>$year_arr, 'value'=>"{$vars['value']['year']}")) ;
