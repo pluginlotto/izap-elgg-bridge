@@ -82,6 +82,7 @@ add_translation('en', array(
     'izap-bridge:spammer_act_no' => 'Send me report, but stop more entries from the user.',
     'izap-bridge:antispam:enable' => 'Enable anitspam for my site',
     'izap:bridge:mark_spammer' => 'Mark spammer',
+    'izap:bridge:unmark_spammer' => 'Unmark spammer',
     'izap:bridge:suspected_spammer' =>'Suspected spammer',
     'izap-elgg-bridge:spammer_suspected' => 'You have marked the user as suspected spammer',
    
