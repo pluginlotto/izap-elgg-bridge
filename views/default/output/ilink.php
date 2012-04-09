@@ -21,6 +21,7 @@ echo elgg_view('output/url', array(
   'text' => "<img src=\"$powered_url\" alt=\"Powered by iZAP\" width=\"106\" height=\"15\" />",
   'class' => '',
   'is_trusted' => true,
-  'target' => "_blank"
+  'target' => "_blank",
+  'title' => "Powered by iZAP"
 ));
 echo '</div>';
