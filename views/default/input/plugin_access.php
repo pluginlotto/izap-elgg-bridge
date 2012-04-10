@@ -17,8 +17,8 @@
   <label>
     <?php echo elgg_echo('izap-elgg-bridge:plugin_data_access');?>
     <br />
-    <?php echo elgg_view('input/pulldown', array(
-      'internalname' => 'params[izap_is_admin_only]',
+    <?php echo elgg_view('input/dropdown', array(
+      'name' => 'params[izap_is_admin_only]',
       'value' => $vars['entity']->izap_is_admin_only,
       'options_values' => array(
         'no' => elgg_echo('izap-elgg-bridge:no'),
