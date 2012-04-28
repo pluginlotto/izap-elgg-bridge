@@ -73,30 +73,7 @@
 
 <fieldset class="izap_admin_fieldset">
   <legend><?php echo elgg_echo('izap-elgg-bridge:general_settings'); ?></legend>
-  <p>
-  <label>
-    <?php echo elgg_echo('izap-bridge:choose_currency_for_site'); ?><br />
-    <?php
-    echo elgg_view('input/dropdown', array(
-        'name' => 'params[izap_site_currency]',
-        'value' => IzapBase::pluginSetting(array(
-            'name' => 'izap_site_currency',
-            'plugin' => GLOBAL_IZAP_ELGG_BRIDGE,
-
-        )),    'options_values' =>elgg_trigger_plugin_hook('izap-bridge:currency_array', 'izap', null, array(
-            'USD:$' => 'USD',
-            'EUR:€' => 'EUR',
-            'GBP:£' => 'GBP'
-            )),
-
-    ));
-    ?>
-
-  </label>
-  <br />
-  <?php echo elgg_echo('izap-bridge:choose_currency_msg'); ?>
-</p>
-
+  
 <?php
 echo IzapBase::input('radio', array(
     'input_title' => elgg_echo('izap-bridge:antispam:enable'),
