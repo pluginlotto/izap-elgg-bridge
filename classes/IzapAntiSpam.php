@@ -80,7 +80,7 @@ class IzapAntiSpam {
     }
 
     // check for the admins
-    if(isadminloggedin()) {
+    if(elgg_is_admin_logged_in()) {
       return TRUE;
     }
 
