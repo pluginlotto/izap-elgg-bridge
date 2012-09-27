@@ -55,19 +55,19 @@ if ($vars['entity']->global_payment_gateway == 'yes') {
 
   $form = '<fieldset class="payment_fieldset">';
   $form .= '<legend>' . elgg_echo('izap_payment:choose_multiple') . '</legend>';
-  $form .= elgg_view('input/checkboxes', array(
-      'name' => 'params[gateway_1]',
+  $form .= elgg_view('input/radio', array(
+      'name' => 'params[gateway_1_admin]',
       'options' => $gateway['multi'],
-      'value' => explode('|', elgg_get_plugin_user_setting('gateway_1', elgg_get_logged_in_user_guid(), GLOBAL_IZAP_PAYMENT_PLUGIN)),
+      'value' => explode('|', elgg_get_plugin_setting('gateway_1_admin', GLOBAL_IZAP_PAYMENT_PLUGIN)),
           ));
   $form .= '</fieldset><br />';
 
   $form .= '<fieldset class="payment_fieldset">';
   $form .= '<legend>' . elgg_echo('izap_payment:choose_single') . '</legend>';
   $form .= elgg_view('input/radio', array(
-      'name' => 'params[gateway_2]',
+      'name' => 'params[gateway_2_admin]',
       'options' => $gateway['single'],
-      'value' => elgg_get_plugin_user_setting('gateway_2', elgg_get_logged_in_user_guid(), GLOBAL_IZAP_PAYMENT_PLUGIN),
+      'value' => elgg_get_plugin_setting('gateway_2_admin',GLOBAL_IZAP_PAYMENT_PLUGIN),
           ));
   $form .= '</fieldset><br />';
 
