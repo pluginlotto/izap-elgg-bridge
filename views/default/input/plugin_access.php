@@ -55,10 +55,23 @@ if ($vars['entity']->global_payment_gateway == 'yes') {
 
   $form = '<fieldset class="payment_fieldset">';
   $form .= '<legend>' . elgg_echo('izap_payment:choose_multiple') . '</legend>';
-  $form .= elgg_view('input/radio', array(
+  $form .= '<legend>' . elgg_echo('paypal') . '</legend>';
+  $form .= elgg_view('input/dropdown', array(
       'name' => 'params[gateway_1_admin]',
-      'options' => $gateway['multi'],
-      'value' => explode('|', elgg_get_plugin_setting('gateway_1_admin', GLOBAL_IZAP_PAYMENT_PLUGIN)),
+      'options_values' => array(
+            'no' => elgg_echo('izap-elgg-bridge:no'),
+            'yes' => elgg_echo('izap-elgg-bridge:yes'),
+        ),
+      'value' => $vars['entity']->gateway_1_admin,
+          ));
+  $form .= '<legend>' . elgg_echo('alertpay') . '</legend>';
+  $form .= elgg_view('input/dropdown', array(
+      'name' => 'params[gateway_admin]',
+      'options_values' => array(
+            'no' => elgg_echo('izap-elgg-bridge:no'),
+            'yes' => elgg_echo('izap-elgg-bridge:yes'),
+        ),
+      'value' => $vars['entity']->gateway_admin,
           ));
   $form .= '</fieldset><br />';
 
