@@ -38,7 +38,7 @@
         'name' => 'params[global_payment_gateway]',
         'value' => $vars['entity']->global_payment_gateway,
         'options_values' => array(
-            'no' => elgg_echo('izap-elgg-bridge:no'),
+           // 'no' => elgg_echo('izap-elgg-bridge:no'),
             'yes' => elgg_echo('izap-elgg-bridge:yes'),
         ),
     ));
@@ -103,7 +103,7 @@ if ($vars['entity']->global_payment_gateway == 'yes') {
   $form .= elgg_view('input/hidden', array(
       'name' => 'params[default_values]',
       'value' => serialize(array(
-          'gateway_1' => 'none',
+          'gateway_1_admin' => 'none',
       )),
           ));
 
