@@ -1,4 +1,4 @@
-### Version 2.1.1
+### Version 2.1.4
 
 #### Bug fixes
 1. "admin_settings_page_handler" function is no longer available in elgg api. So it has been replaced with "admin_page_handler".
@@ -9,3 +9,6 @@
 2. GData SDK introduction.
 3. Optimization of code.
 4. Small but important bug fixes.
+
+###Version 2.1.4
+1. Fixed the Deprecated function call
