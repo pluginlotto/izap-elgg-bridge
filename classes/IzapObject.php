@@ -112,7 +112,7 @@ class IzapObject extends ElggFile {
         add_to_river(
                 $view,
                 $river_action,
-                elgg_get_loggedin_userid(),
+                elgg_get_logged_in_user_guid(),
                 $this->guid
         );
       }
