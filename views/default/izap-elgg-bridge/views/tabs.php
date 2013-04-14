@@ -12,7 +12,7 @@
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
 */
-$unique_id = uniqid();
+$unique_id = time();
 if(sizeof($vars['tabsArray'])&&is_array($vars['tabsArray'])) {
   elgg_load_js('jquery.md5'); ?>
   <script type="text/javascript" language="javascript">
@@ -41,7 +41,6 @@ if(sizeof($vars['tabsArray'])&&is_array($vars['tabsArray'])) {
     });
 
     $(document).ready(function(){
-      // alert('elgg_selected_tab_'+$.md5($(location).attr('href')));
       var selected_var='<?php echo $vars['selected']?$vars['selected']:"" ;?>';
       if(selected_var) {
         selected = 'tabs-'+selected_var;

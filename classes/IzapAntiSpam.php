@@ -145,7 +145,8 @@ class IzapAntiSpam {
         'plugin' => GLOBAL_IZAP_ELGG_BRIDGE,
         'name' => 'izap_enable_antispam',
         'value' => 'yes'
-    ));if($enable == 'yes') {
+    ));
+    if($enable == 'yes') {
       return TRUE;
     }
 

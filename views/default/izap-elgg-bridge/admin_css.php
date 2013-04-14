@@ -21,5 +21,8 @@ font-size: 1.2em; padding: 5px; border: 2px solid #DEDEDE; margin-left: 20px;
  border: 2px solid #DEDEDE; margin: 0 0 20px 0;
 }
 .izap_admin_fieldset p{
-margin: 10px;
+  margin: 10px;
+}
+.izap_admin_fieldset ul{
+  margin: 0 0 0 10px;
 }

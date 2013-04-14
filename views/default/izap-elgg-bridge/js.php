@@ -12,13 +12,8 @@
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 ?>
-$('.izap_suspected_spammer').live('click',function()
-{
+$('.izap_suspected_spammer').live('click',function(){
   elgg.action("<?php echo IzapBase::getFormAction('mark_spammer', GLOBAL_IZAP_ELGG_BRIDGE)?>",
-    {
-      data: {
-              guid:$(this).attr('guid')
-            },
-          }
+    {data: {guid:$(this).attr('guid')}}
   );
 });

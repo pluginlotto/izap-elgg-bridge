@@ -837,7 +837,7 @@ class IzapBase {
    * @param <int> $element_limit
    */
   static function izap_truncate_array($array_to_be_truncated, $element_limit){
-    return array_slice($array_to_be_truncated, 0, $element_limit, true);
+    return array_slice((array)$array_to_be_truncated, 0, $element_limit, true);
   }
 
 }

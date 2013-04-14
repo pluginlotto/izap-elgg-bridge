@@ -12,8 +12,6 @@
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 ?>
-<br />
-
 <fieldset class="izap_admin_fieldset">
   <legend><?php echo elgg_echo('izap-elgg-bridge:api_settings'); ?></legend>
   <p>
@@ -74,21 +72,22 @@
 <fieldset class="izap_admin_fieldset">
   <legend><?php echo elgg_echo('izap-elgg-bridge:general_settings'); ?></legend>
   
-<?php
-echo IzapBase::input('radio', array(
-    'input_title' => elgg_echo('izap-bridge:antispam:enable'),
-    'options' => array(
-        elgg_echo('izap-bridge:yes') => 'yes',
-        elgg_echo('izap-bridge:no') => 'no',
-    ),
-    'value' => IzapBase::pluginSetting(array(
-        'plugin' => GLOBAL_IZAP_ELGG_BRIDGE,
-        'name' => 'izap_enable_antispam',
-        'value' => 'yes'
-    )),
-    'name' => 'params[izap_enable_antispam]',
+  <p>
+    <label><?php echo elgg_echo('izap-bridge:antispam:enable'); ?></label>
+    <?php
+    echo elgg_view('input/dropdown', array(
+	'name' => 'params[izap_enable_antispam]',
+	'options_values' => array(
+		'no' => elgg_echo('option:no'),
+		'yes' => elgg_echo('option:yes')
+	),
+	'value' => IzapBase::pluginSetting(array(
+            'plugin' => GLOBAL_IZAP_ELGG_BRIDGE,
+            'name' => 'izap_enable_antispam'
+        )),
 ));
-?>
+    ?>
+  </p>
 
 <?php
 if (IzapBase::pluginSetting(array(
