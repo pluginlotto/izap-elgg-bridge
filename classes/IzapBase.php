@@ -330,7 +330,12 @@ class IzapBase {
    */
   public static function setPageOwner($username) {
     if (is_numeric($username)) {
-      elgg_set_page_owner_guid($username);
+        /*For numeric User*/
+        if(IzapBase::getEntityFromUsername($username)){
+            elgg_set_page_owner_guid((int)IzapBase::getEntityFromUsername($username)->guid); 
+         }else{
+        elgg_set_page_owner_guid($username);
+         } 
     } elseif (is_string($username)) {
       $entity = self::getEntityFromUsername($username);
       if ($entity) {
